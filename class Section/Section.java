@@ -2,30 +2,27 @@ public class Section {
 
     public static int sectionCount = 0;
 
-    private String sectionID;
+    private String sectionId;
     private Course course;
     private Instructor instructor;
     private Schedule schedule;
-    private int maxSeats;
+    private String room;
 
-    // Constructor 1
     public Section() {
         sectionCount++;
     }
 
-    // Constructor 2
-    public Section(String sectionID, Course course, Instructor instructor, Schedule schedule, int maxSeats) {
-        this.sectionID = sectionID;
+    public Section(String sectionId, Course course, Instructor instructor, Schedule schedule, String room) {
+        this.sectionId = sectionId;
         this.course = course;
         this.instructor = instructor;
         this.schedule = schedule;
-        this.maxSeats = maxSeats;
+        this.room = room;
         sectionCount++;
     }
 
-    // Getter / Setter
-    public String getSectionID() { return sectionID; }
-    public void setSectionID(String sectionID) { this.sectionID = sectionID; }
+    public String getSectionId() { return sectionId; }
+    public void setSectionId(String sectionId) { this.sectionId = sectionId; }
 
     public Course getCourse() { return course; }
     public void setCourse(Course course) { this.course = course; }
@@ -36,6 +33,16 @@ public class Section {
     public Schedule getSchedule() { return schedule; }
     public void setSchedule(Schedule schedule) { this.schedule = schedule; }
 
-    public int getMaxSeats() { return maxSeats; }
-    public void setMaxSeats(int maxSeats) { this.maxSeats = maxSeats; }
+    public String getRoom() { return room; }
+    public void setRoom(String room) { this.room = room; }
+
+    public void printInfo() {
+        System.out.println("Section ID : " + sectionId);
+        System.out.println("Room       : " + room);
+        System.out.println("Course     : " + course.getCourseName());
+        System.out.println("Instructor : " + instructor.getName());
+        System.out.println("Schedule   : " + schedule.getDay() + " " +
+                           schedule.getStartTime() + "-" + schedule.getEndTime());
+        System.out.println("--------------------------------");
+    }
 }

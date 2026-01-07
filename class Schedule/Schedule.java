@@ -5,23 +5,18 @@ public class Schedule {
     private String day;
     private String startTime;
     private String endTime;
-    private String room;
 
-    // Constructor 1
     public Schedule() {
         scheduleCount++;
     }
 
-    // Constructor 2
-    public Schedule(String day, String startTime, String endTime, String room) {
+    public Schedule(String day, String startTime, String endTime) {
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.room = room;
         scheduleCount++;
     }
 
-    // Getter / Setter
     public String getDay() { return day; }
     public void setDay(String day) { this.day = day; }
 
@@ -31,6 +26,10 @@ public class Schedule {
     public String getEndTime() { return endTime; }
     public void setEndTime(String endTime) { this.endTime = endTime; }
 
-    public String getRoom() { return room; }
-    public void setRoom(String room) { this.room = room; }
+    public void printInfo() {
+        System.out.println("Day        : " + day);
+        System.out.println("Start Time : " + startTime);
+        System.out.println("End Time   : " + endTime);
+        System.out.println("--------------------------------");
+    }
 }

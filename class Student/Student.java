@@ -7,12 +7,10 @@ public class Student {
     private String major;
     private int age;
 
-    // Constructor 1
     public Student() {
         studentCount++;
     }
 
-    // Constructor 2
     public Student(String studentID, String name, String major, int age) {
         this.studentID = studentID;
         this.name = name;
@@ -21,7 +19,6 @@ public class Student {
         studentCount++;
     }
 
-    // Getter / Setter
     public String getStudentID() { return studentID; }
     public void setStudentID(String studentID) { this.studentID = studentID; }
 
@@ -33,4 +30,12 @@ public class Student {
 
     public int getAge() { return age; }
     public void setAge(int age) { this.age = age; }
+
+    public void printInfo() {
+        System.out.println("Student ID : " + studentID);
+        System.out.println("Name       : " + name);
+        System.out.println("Major      : " + major);
+        System.out.println("Age        : " + age);
+        System.out.println("--------------------------------");
+    }
 }
