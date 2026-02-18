@@ -1,10 +1,10 @@
 # Assignment Title: Rescue Robot System (Interface + Composition)
-
+---
 ## Student Information
 - Name: Piyawat Meetee
 - Student ID: [68122250101]
 - Submission Date: [18/02/2026]
-
+---
 
 ## Problem Description
 
@@ -21,8 +21,87 @@ Scenario ที่รองรับ:
 - ตรวจจับอุณหภูมิเพื่อค้นหามนุษย์
 - ส่งข้อความรายงานพร้อมพิกัดปัจจุบัน
 - ทุก action ต้องใช้พลังงานจาก Battery
+---
+## Learning Objectives
+- เข้ําใจแนวคิด OOP เช่น Encapsulation, Inheritance, Polymorphism, Composition
+- ออกแบบ class และ relationship
+- เขียนโปรแกรมเชิงวัตถุอย่ํางเป็นระบบ
+
+## System Design
+
+### Class Diagram (UML)
+
+ระบบประกอบด้วยคลาสหลักคือ `RescueRobot`  
+ซึ่ง implements 4 interfaces ได้แก่:
+
+- Flyable
+- Movable
+- Communicable
+- Detectable
+
+และมีความสัมพันธ์แบบ has-a (Composition) กับ:
+
+- Battery
+- GPSTracker
+- ThermalCamera
+
+โครงสร้างโดยสรุป:
+
+RescueRobot  
+→ implements Flyable, Movable, Communicable, Detectable  
+→ has-a Battery  
+→ has-a GPSTracker  
+→ has-a ThermalCamera  
+
+https://drive.google.com/file/d/1fIqKQBMHcE9pbneCGv612I29nWFGb4Ft/view?usp=sharing
+
+---
+### Key Classes
+- **RescueRobot** → คลาสหลัก ควบคุมการทำงานทั้งหมดของหุ่นยนต์  
+- **Battery** → จัดการพลังงาน เช่น drain() และ charge()  
+- **GPSTracker** → จัดการตำแหน่ง lat/lon และแสดงพิกัดปัจจุบัน  
+- **ThermalCamera** → ตรวจจับอุณหภูมิและจำลองการค้นหามนุษย์  
+---
 
 
+## OOP Concepts Used
+
+### Encapsulation
+ตัวแปรภายในแต่ละคลาสถูกกำหนดเป็น `private`  
+และเข้าถึงผ่าน method เท่านั้น  
+ช่วยป้องกันการแก้ไขข้อมูลโดยตรงจากภายนอก
+
+---
+
+### Inheritance
+ใช้ `implements` เพื่อสืบทอดพฤติกรรมจากหลาย interface  
+เช่น RescueRobot implements Flyable, Movable เป็นต้น  
+เป็นการสืบทอดพฤติกรรม (behavior inheritance)
+
+---
+
+### Polymorphism
+RescueRobot สามารถถูกมองเป็น Flyable หรือ Movable ได้  
+และมีการ override method จาก interface  
+ทำให้สามารถเรียกใช้งานผ่านชนิด interface ได้
+
+---
+
+### Abstraction
+Interface กำหนดเฉพาะสิ่งที่ต้องทำ (method signature)  
+โดยไม่เปิดเผยรายละเอียดภายใน  
+เช่น Flyable กำหนดว่าต้องมี fly() แต่ไม่บอกวิธีบิน
+
+---
+
+### Composition
+RescueRobot มี object ภายใน ได้แก่:
+
+- Battery
+- GPSTracker
+- ThermalCamera
+
+---
 ### 1) Java สืบทอดหลาย class ไม่ได้เพราะอะไร
 
 Java ไม่อนุญาตให้ class หนึ่ง `extends` ได้มากกว่า 1 class  
@@ -39,6 +118,7 @@ D จะไม่สามารถตัดสินใจได้ว่าจ
 เพื่อหลีกเลี่ยง Java จึง:
 - อนุญาตให้ extends ได้เพียง 1 class
 - แต่สามารถ implements ได้หลาย interface
+---
 
 ### 2) เราใช้ Interface + Composition แทนอย่างไร
 
@@ -63,6 +143,7 @@ Interface กำหนดสิ่งที่ class ต้องทำ
 public class RescueRobot 
     implements Flyable, Movable, Communicable, Detectable
 ```
+---
 
 ### 3) อธิบายการแก้ปัญหา default method ชื่อชนกัน
 
