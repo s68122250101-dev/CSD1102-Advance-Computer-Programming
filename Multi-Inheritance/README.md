@@ -3,96 +3,112 @@
 ## Student Information
 - Name: Piyawat Meetee
 - Student ID: [68122250101]
-- Submission Date: [18/2/2026]
+- Submission Date: [18/02/2026]
 
 
 ## Problem Description
 
-ระบบนี้เป็นโปรแกรมจำลองหุ่นยนต์กู้ภัย (Rescue Robot)  
+โปรแกรมนี้เป็นระบบจำลองหุ่นยนต์กู้ภัย (Rescue Robot)  
 ที่สามารถบิน เคลื่อนที่ ตรวจจับความร้อน และส่งข้อความพร้อมพิกัดได้
 
-### เป้าหมายของโปรแกรม
-- ออกแบบระบบโดยใช้แนวคิด OOP
-- แสดงการแก้ปัญหา Multiple Inheritance ใน Java
+เป้าหมายของงานคือ:
+- แสดงแนวคิด OOP อย่างเป็นระบบ
+- แก้ปัญหา Multiple Inheritance ใน Java
 - ใช้ Interface + Composition แทนการสืบทอดหลาย class
 
-### Scenario ที่ต้องรองรับ
-- หุ่นยนต์บินไปยังตำแหน่งที่กำหนด
+Scenario ที่รองรับ:
+- หุ่นยนต์บินไปยังตำแหน่งเป้าหมาย
 - ตรวจจับอุณหภูมิเพื่อค้นหามนุษย์
 - ส่งข้อความรายงานพร้อมพิกัดปัจจุบัน
-- ทุกการกระทำต้องใช้พลังงานจาก Battery
-
----
-
-## Learning Objectives
-
-- เข้าใจแนวคิด OOP เช่น Encapsulation, Inheritance, Polymorphism, Composition
-- ออกแบบ class และ relationship อย่างถูกต้อง
-- ใช้ Interface แทน Multiple Inheritance
-- แยกระบบย่อยออกเป็นคลาสประกอบ (Composition)
+- ทุก action ต้องใช้พลังงานจาก Battery
 
 
-## System Design
+### 1) Java สืบทอดหลาย class ไม่ได้เพราะอะไร
 
-### Class Diagram (UML)
+Java ไม่อนุญาตให้ class หนึ่ง `extends` ได้มากกว่า 1 class  
+เพื่อป้องกันปัญหา **Diamond Problem**
 
+ตัวอย่างปัญหา:
+- Class A มี method ชื่อ start()
+- Class B และ C สืบทอดจาก A
+- Class D สืบทอดจาก B และ C
 
+ถ้า B และ C override start() ต่างกัน  
+D จะไม่สามารถตัดสินใจได้ว่าจะใช้ของใคร
 
-### Key Classes
+เพื่อหลีกเลี่ยง Java จึง:
+- อนุญาตให้ extends ได้เพียง 1 class
+- แต่สามารถ implements ได้หลาย interface
 
-- **RescueRobot** → คลาสหลัก ควบคุมการทำงานทั้งหมด
-- **Battery** → จัดการพลังงาน (drain / charge)
-- **GPSTracker** → จัดการพิกัดตำแหน่ง
-- **ThermalCamera** → ตรวจจับอุณหภูมิ
-- **Flyable / Movable / Communicable / Detectable** → กำหนดความสามารถผ่าน interface
+### 2) เราใช้ Interface + Composition แทนอย่างไร
 
+เนื่องจากไม่สามารถสืบทอดหลาย class ได้  
+เราจึงใช้ 2 แนวคิดแทน
 
-## OOP Concepts Used
+#### (A) Interface → รวม “ความสามารถ”
 
-### Encapsulation
-- ตัวแปรภายในคลาสถูกกำหนดเป็น `private`
-- เข้าถึงผ่านเมธอดเท่านั้น
-- ป้องกันการแก้ไขข้อมูลโดยตรง
+RescueRobot implements:
 
-### Inheritance
-- RescueRobot implements หลาย interface
-- แสดงแนวคิด multiple behavior inheritance
+- Flyable
+- Movable
+- Communicable
+- Detectable
 
-### Polymorphism
-- ใช้การ override method จาก interface
-- RescueRobot สามารถถูกมองเป็น Flyable หรือ Movable ได้
+Interface กำหนดสิ่งที่ class ต้องทำ  
+แต่ไม่เก็บข้อมูลภายใน
 
-### Abstraction
-- Interface กำหนดเฉพาะสิ่งที่ต้องทำ (method)
-- ไม่เปิดเผยรายละเอียดภายใน
+ตัวอย่าง:
 
-### Composition
-- RescueRobot **has-a**
-  - Battery
-  - GPSTracker
-  - ThermalCamera
-- แทนการสืบทอดหลาย class
+```java
+public class RescueRobot 
+    implements Flyable, Movable, Communicable, Detectable
+```
 
-## การแก้ปัญหา Default Method ชื่อชนกัน
+### 3) อธิบายการแก้ปัญหา default method ชื่อชนกัน
 
-ถ้า interface สองตัวมี default method ชื่อเดียวกัน  
-Java จะไม่สามารถตัดสินใจได้ว่าใช้ของใคร
+interface สามารถมี `default method` ได้
+ซึ่งหมายความว่า interface สามารถมี implementation ภายในได้
 
-วิธีแก้:
-- Override method ใน RescueRobot
-- หรือเลือกใช้ InterfaceName.super.method()
+ปัญหาเกิดขึ้นเมื่อ:
 
-เพื่อป้องกันความกำกวม (Diamond Problem)
+- Class หนึ่ง implements หลาย interface
+- และ interface เหล่านั้นมี default method ชื่อเดียวกัน
 
----
+ตัวอย่าง:
 
-## How to Compile and Run
+```java
+interface A {
+    default void start() {
+        System.out.println("Start from A");
+    }
+}
 
-เปิด Terminal / Command Prompt
-เข้าไปยังโฟลเดอร์โปรเจกต์ที่เก็บไฟล์ `.java`
+interface B {
+    default void start() {
+        System.out.println("Start from B");
+    }
+}
 
-### Java Example
+class C implements A, B { }
+```
 
-```bash
-javac *.java
-java Main
+วิธีแก้ปัญหา
+Class ที่ implements ต้อง override method นั้นเองอย่างชัดเจน
+
+ตัวอย่าง:
+```java
+class C implements A, B {
+
+    @Override
+    public void start() {
+        A.super.start();   // เลือกใช้ของ A
+    }
+}
+```
+หรือสามารถเขียน implementation ใหม่เองได้:
+```java
+@Override
+public void start() {
+    System.out.println("Custom start implementation");
+}
+```
