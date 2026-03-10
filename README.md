@@ -1,6 +1,11 @@
-# CSD1102-Advance-Computer-Programming
-Repositiory of Algorithms and Design class (SSRU-1-68) Piyawat Meete 68122250101
-ตัวอย่าง:
+Case Study: ระบบร้านกาแฟ Multi-Threaded
+---
+## Student Information
+- Name: Piyawat Meetee
+- Student ID: [68122250101]
+- Submission Date: [18/02/2026]
+---
+Code
 
 ```java
 public class RescueRobot 
